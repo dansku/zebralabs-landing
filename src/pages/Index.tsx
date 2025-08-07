@@ -1,19 +1,51 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import MouseGradient from "@/components/MouseGradient";
 
 const Index = () => {
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const logoRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
-    const subject = encodeURIComponent("ZebraLabs updates subscription");
-    const body = encodeURIComponent(`Please add me to the updates list.\n\nEmail: ${email}`);
-    window.location.href = `mailto:dan@zebralabs.org?subject=${subject}&body=${body}`;
-    setEmail("");
+    if (!email || isLoading) return;
+
+    setIsLoading(true);
+
+    try {
+      // Call our secure serverless function instead of Beehiiv directly
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setEmail("");
+        toast({
+          title: "Success! 🚀",
+          description: "You've been added to our waitlist. Great things are coming!",
+        });
+      } else {
+        throw new Error(data.error || 'Failed to subscribe');
+      }
+    } catch (error) {
+      toast({
+        title: "Oops! Something went wrong",
+        description: error instanceof Error ? error.message : "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -172,13 +204,14 @@ const Index = () => {
               />
               <Button 
                 type="submit"
-                className="h-14 px-8 rounded-full text-lg font-bold transition-all duration-300 whitespace-nowrap bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white border-2 border-pink-400/50 hover:border-pink-400 shadow-lg hover:shadow-pink-400/50"
+                disabled={isLoading}
+                className="h-14 px-8 rounded-full text-lg font-bold transition-all duration-300 whitespace-nowrap bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white border-2 border-pink-400/50 hover:border-pink-400 shadow-lg hover:shadow-pink-400/50 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ 
                   boxShadow: '0 0 20px rgba(255, 0, 255, 0.4)',
                   textShadow: '0 0 10px rgba(255, 255, 255, 0.8)'
                 }}
               >
-                Notify Me
+                {isLoading ? 'Adding you...' : 'Notify Me'}
               </Button>
             </form>
           </div>
