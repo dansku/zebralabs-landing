@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
 import MouseGradient from "@/components/MouseGradient";
 
 const Index = () => {
