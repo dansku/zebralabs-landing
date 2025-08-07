@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import MouseGradient from "@/components/MouseGradient";
 
 const Index = () => {
   const [email, setEmail] = useState("");
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const logoRef = useRef<HTMLDivElement>(null);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,24 +17,94 @@ const Index = () => {
     setEmail("");
   };
 
-  return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col bg-gradient-to-b from-purple-900 via-black to-pink-900">
-      <MouseGradient />
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
       
-      {/* Synthwave Grid Background */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 to-pink-500/10"></div>
+      // Calculate relative position (-1 to 1)
+      const x = (clientX - innerWidth / 2) / (innerWidth / 2);
+      const y = (clientY - innerHeight / 2) / (innerHeight / 2);
+      
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <div className="relative min-h-screen overflow-hidden flex flex-col">
+      {/* Dark Synthwave Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-purple-950 to-black"></div>
+      
+      {/* Dark horizon glow */}
+      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-purple-900/20 via-pink-900/10 to-transparent"></div>
+
+      {/* Minimal Dark Grid Floor */}
+      <div className="absolute bottom-0 left-0 right-0 h-1/2 overflow-hidden opacity-30">
         <div 
           className="absolute inset-0"
           style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)
+            background: `
+              repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 39px,
+                rgba(0, 255, 255, 0.15) 40px,
+                rgba(0, 255, 255, 0.15) 41px
+              ),
+              repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 49px,
+                rgba(255, 0, 255, 0.1) 50px,
+                rgba(255, 0, 255, 0.1) 51px
+              )
             `,
-            backgroundSize: '40px 40px'
+            transform: 'perspective(600px) rotateX(88deg)',
+            transformOrigin: 'bottom center'
           }}
         ></div>
       </div>
+
+      {/* Dark Synthwave Mountains - Minimal Wireframe */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 opacity-40">
+        <svg className="w-full h-full" viewBox="0 0 1200 200" preserveAspectRatio="none">
+          {/* Distant mountain silhouette */}
+          <path 
+            d="M0,200 L0,120 L200,80 L400,100 L600,70 L800,90 L1000,75 L1200,95 L1200,200 Z" 
+            fill="none"
+            stroke="rgba(0, 255, 255, 0.4)"
+            strokeWidth="1"
+          />
+          {/* Closer mountain wireframe */}
+          <path 
+            d="M0,200 L0,150 L150,120 L350,140 L550,110 L750,130 L950,115 L1200,135 L1200,200 Z" 
+            fill="rgba(25, 25, 25, 0.6)"
+            stroke="rgba(255, 0, 255, 0.5)"
+            strokeWidth="1.5"
+          />
+        </svg>
+      </div>
+
+      {/* Subtle stars */}
+      <div className="absolute inset-0">
+        {[...Array(20)].map((_, i) => (
+          <div 
+            key={i}
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60 animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 60}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 3}s`
+            }}
+          ></div>
+        ))}
+      </div>
+
+      <MouseGradient />
 
       {/* Floating neon orbs */}
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
@@ -46,9 +118,15 @@ const Index = () => {
       {/* Main Content */}
       <main className="relative z-10 px-6 pt-12 pb-24 flex-grow">
         <div className="max-w-7xl mx-auto text-center">
-          {/* Logo with neon glow */}
+          {/* Logo with neon glow and mouse tracking */}
           <div className="mb-4">
-            <div className="relative inline-block">
+            <div 
+              ref={logoRef}
+              className="relative inline-block transition-transform duration-100 ease-out"
+              style={{
+                transform: `translate3d(${mousePosition.x * 20}px, ${mousePosition.y * 15}px, 0) rotateX(${mousePosition.y * -5}deg) rotateY(${mousePosition.x * 5}deg)`
+              }}
+            >
               <img 
                 src="/logo.png" 
                 alt="ZebraLabs" 
@@ -56,7 +134,8 @@ const Index = () => {
                 style={{ 
                   height: '510px', 
                   width: 'auto',
-                  filter: 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.5)) drop-shadow(0 0 40px rgba(255, 0, 255, 0.3))'
+                  filter: 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.5)) drop-shadow(0 0 40px rgba(255, 0, 255, 0.3))',
+                  transformStyle: 'preserve-3d'
                 }} 
               />
             </div>
