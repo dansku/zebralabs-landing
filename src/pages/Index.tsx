@@ -16,20 +16,20 @@ const Index = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden">
+    <div className="relative min-h-screen bg-black text-white overflow-hidden flex flex-col">
       <MouseGradient />
       {/* Header */}
       <header className="relative z-10 px-6 py-8">
-        <nav className="flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center space-x-2">
-            <img src="/logo.png" alt="ZebraLabs" className="h-24" style={{ width: 'auto' }} />
-          </div>
-        </nav>
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 px-6 pt-12 pb-24">
+      <main className="relative z-10 px-6 pt-12 pb-24 flex-grow">
         <div className="max-w-7xl mx-auto text-center">
+          {/* Logo positioned above the text */}
+          <div className="mb-4">
+            <img src="/logo.png" alt="ZebraLabs" className="mx-auto" style={{ height: '510px', width: 'auto' }} />
+          </div>
+          
           {/* Hero Section */}
           <div className="max-w-4xl mx-auto">
             <h1 className="text-6xl md:text-7xl font-bold leading-tight tracking-tight mb-8">
@@ -50,18 +50,16 @@ const Index = () => {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full sm:flex-1 px-6 py-4 bg-gray-900 border border-gray-600 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                className="w-full sm:flex-1 h-14 px-6 bg-gray-900 border border-gray-600 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors text-lg"
               />
               <Button 
                 type="submit"
-                className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full text-lg font-medium transition-colors"
+                className="bg-purple-600 hover:bg-purple-700 text-white h-14 px-8 rounded-full text-lg font-medium transition-colors whitespace-nowrap"
               >
                 Notify Me
               </Button>
             </form>
           </div>
-
-
         </div>
       </main>
 
