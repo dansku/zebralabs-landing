@@ -6,8 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Features from "./pages/Features";
-import MedsTracker from "./pages/MedsTracker";
+import ReminDose from "./pages/ReminDose";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
@@ -23,10 +22,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
-          <Route path="/features" element={<Features />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/remindose" element={<MedsTracker />} />
-          <Route path="/medstracker" element={<MedsTracker />} />
+          <Route path="/remindose" element={<ReminDose />} />
+          <Route path="/medstracker" element={<ReminDose />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

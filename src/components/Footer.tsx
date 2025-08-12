@@ -63,10 +63,10 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/medstracker"
+                  to="/remindose"
                   className="text-gray-400 hover:text-pink-400 transition-colors flex items-center gap-1"
                 >
-                  MedsTracker
+                  ReminDose
                   <ExternalLink className="h-3 w-3" />
                 </Link>
               </li>

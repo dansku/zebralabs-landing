@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 
 const TermsAndConditions = () => {
   return (
@@ -346,10 +347,8 @@ const TermsAndConditions = () => {
             <p>If you have any questions about these Terms, please contact us at:</p>
             <div className="bg-gray-800 p-4 rounded-lg mt-4">
               <p className="font-semibold">Zebra Labs OOD</p>
-              <p>Email: legal@zebralabs.org</p>
-              <p>Support: support@zebralabs.org</p>
-              <p>Address: Sofia, Bulgaria</p>
-              <p>Company Registration: [Registration Number]</p>
+              <p>Email: <ObfuscatedEmail user="legal" domain="zebralabs.org" /></p>
+              <p>Support: <ObfuscatedEmail user="support" domain="zebralabs.org" /></p>
             </div>
           </section>
 

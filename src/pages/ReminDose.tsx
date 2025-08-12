@@ -4,20 +4,20 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import NavHeader from "@/components/NavHeader";
 import Footer from "@/components/Footer";
-import { 
-  Smartphone, 
-  Clock, 
-  CheckCircle, 
-  Bell, 
-  Calendar, 
-  Shield,
-  Download,
-  Star,
-  Users,
-  Activity
+import {
+    Smartphone,
+    Clock,
+    CheckCircle,
+    Bell,
+    Calendar,
+    Shield,
+    Download,
+    Star,
+    Users,
+    Activity, Scale
 } from "lucide-react";
 
-const MedsTracker = () => {
+const ReminDose = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -36,7 +36,7 @@ const MedsTracker = () => {
         },
         body: JSON.stringify({ 
           email,
-          source: 'medstracker'
+          source: 'remindose'
         })
       });
 
@@ -98,8 +98,8 @@ const MedsTracker = () => {
                   <span>Schedule Tracking</span>
                 </div>
                 <div className="flex items-center gap-2 text-purple-300">
-                  <Activity className="h-5 w-5" />
-                  <span>Health Analytics</span>
+                  <Scale className="h-5 w-5" />
+                  <span>Weight Tracking</span>
                 </div>
               </div>
 
@@ -189,71 +189,6 @@ const MedsTracker = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 px-6 bg-gradient-to-b from-transparent to-gray-900/50">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
-            Everything You Need to Stay on Track
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-cyan-500/10 to-pink-500/10 p-6 rounded-xl border border-cyan-500/20">
-              <Bell className="h-12 w-12 text-cyan-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Smart Reminders</h3>
-              <p className="text-gray-400">
-                Intelligent notifications that learn your routine. Get reminded at the perfect time, 
-                every time, with snooze options and confirmation tracking.
-              </p>
-            </div>
-            
-            <div className="bg-gradient-to-br from-pink-500/10 to-purple-500/10 p-6 rounded-xl border border-pink-500/20">
-              <Activity className="h-12 w-12 text-pink-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Adherence Insights</h3>
-              <p className="text-gray-400">
-                Visual charts and reports show your medication adherence patterns. Identify trends 
-                and share reports with your healthcare provider.
-              </p>
-            </div>
-            
-            <div className="bg-gradient-to-br from-purple-500/10 to-cyan-500/10 p-6 rounded-xl border border-purple-500/20">
-              <Shield className="h-12 w-12 text-purple-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Bank-Level Security</h3>
-              <p className="text-gray-400">
-                Your health data is protected with AES-256 encryption. HIPAA-compliant infrastructure 
-                ensures your privacy is always maintained.
-              </p>
-            </div>
-            
-            <div className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 p-6 rounded-xl border border-cyan-500/20">
-              <Calendar className="h-12 w-12 text-cyan-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Flexible Scheduling</h3>
-              <p className="text-gray-400">
-                Set complex medication schedules with ease. Handle varying doses, as-needed medications, 
-                and temporary prescriptions effortlessly.
-              </p>
-            </div>
-            
-            <div className="bg-gradient-to-br from-pink-500/10 to-cyan-500/10 p-6 rounded-xl border border-pink-500/20">
-              <Users className="h-12 w-12 text-pink-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Family Sharing</h3>
-              <p className="text-gray-400">
-                Care for loved ones with family accounts. Monitor adherence and get alerts if doses 
-                are missed (with permission).
-              </p>
-            </div>
-            
-            <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 p-6 rounded-xl border border-purple-500/20">
-              <Star className="h-12 w-12 text-purple-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-3">Drug Interactions</h3>
-              <p className="text-gray-400">
-                Built-in database checks for potential interactions between your medications. 
-                Get alerts about food interactions and side effects.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* How It Works Section */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
@@ -305,58 +240,6 @@ const MedsTracker = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-900/50 to-transparent">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
-            Trusted by Thousands
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 rounded-xl border border-gray-700">
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <p className="text-gray-300 mb-4">
-                "Remindose has been a game-changer for managing my daily medications. 
-                The reminders are perfectly timed and the interface is so intuitive!"
-              </p>
-              <p className="text-cyan-400 font-semibold">Sarah M.</p>
-              <p className="text-gray-500 text-sm">Beta Tester</p>
-            </div>
-            
-            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 rounded-xl border border-gray-700">
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <p className="text-gray-300 mb-4">
-                "As a caregiver for my parents, the family sharing feature gives me 
-                peace of mind knowing they're taking their medications on time."
-              </p>
-              <p className="text-pink-400 font-semibold">Michael R.</p>
-              <p className="text-gray-500 text-sm">Beta Tester</p>
-            </div>
-            
-            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 rounded-xl border border-gray-700">
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <p className="text-gray-300 mb-4">
-                "The adherence tracking helped me realize I was missing doses. 
-                Now I'm at 98% adherence thanks to Remindose!"
-              </p>
-              <p className="text-purple-400 font-semibold">Emma L.</p>
-              <p className="text-gray-500 text-sm">Beta Tester</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Coming Soon Section */}
       <section className="py-20 px-6">
@@ -419,4 +302,4 @@ const MedsTracker = () => {
   );
 };
 
-export default MedsTracker;
+export default ReminDose;

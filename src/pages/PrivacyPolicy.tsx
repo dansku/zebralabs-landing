@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 
 const PrivacyPolicy = () => {
   return (
@@ -204,9 +205,8 @@ const PrivacyPolicy = () => {
             <p>If you have questions or concerns about this Privacy Policy, please contact us at:</p>
             <div className="bg-gray-800 p-4 rounded-lg mt-4">
               <p className="font-semibold">Zebra Labs OOD</p>
-              <p>Email: privacy@zebralabs.org</p>
-              <p>Address: Sofia, Bulgaria</p>
-              <p>Data Protection Officer: dpo@zebralabs.org</p>
+              <p>Email: <ObfuscatedEmail user="privacy" domain="zebralabs.org" /></p>
+              <p>Data Protection Officer: <ObfuscatedEmail user="dpo" domain="zebralabs.org" /></p>
             </div>
           </section>
 

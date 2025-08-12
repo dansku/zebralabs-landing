@@ -43,14 +43,6 @@ export default function NavHeader() {
             </Link>
             
             <Link
-              to="/features"
-              className="text-cyan-200/80 hover:text-cyan-200 transition-colors"
-              style={{ textShadow: location.pathname === '/features' ? '0 0 5px rgba(0, 255, 255, 0.5)' : undefined }}
-            >
-              Features
-            </Link>
-            
-            <Link
               to="/contact"
               className="text-cyan-200/80 hover:text-cyan-200 transition-colors"
               style={{ textShadow: location.pathname === '/contact' ? '0 0 5px rgba(0, 255, 255, 0.5)' : undefined }}
