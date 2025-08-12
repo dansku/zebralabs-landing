@@ -11,19 +11,8 @@ export default function Footer() {
             <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent mb-4">
               ZebraLabs
             </div>
-            <p className="text-gray-400 mb-4 max-w-md">
-              Building cutting-edge applications that transform how people interact with technology. 
-              Creating intuitive, powerful tools for the future.
-            </p>
-            <div className="flex items-center gap-2 text-cyan-400">
-              <Mail className="h-4 w-4" />
-              <a 
-                href="mailto:dan@zebralabs.org" 
-                className="hover:text-cyan-300 transition-colors"
-              >
-                dan@zebralabs.org
-              </a>
-            </div>
+
+
           </div>
 
           {/* Navigation Links */}
@@ -75,7 +64,24 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center space-y-4">
+          <div className="flex justify-center items-center gap-6 text-sm">
+            <Link 
+              to="/privacy-policy" 
+              className="text-cyan-300/70 hover:text-cyan-300 transition-colors font-mono tracking-wider"
+              style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}
+            >
+              Privacy Policy
+            </Link>
+            <span className="text-cyan-300/30">•</span>
+            <Link 
+              to="/terms-and-conditions" 
+              className="text-cyan-300/70 hover:text-cyan-300 transition-colors font-mono tracking-wider"
+              style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}
+            >
+              Terms & Conditions
+            </Link>
+          </div>
           <p className="text-cyan-300/70 font-mono text-sm tracking-wider" 
              style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}>
             © 2025 ZebraLabs OOD. All rights reserved.
