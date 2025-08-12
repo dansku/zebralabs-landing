@@ -223,7 +223,24 @@ const Index = () => {
 
       {/* Footer with synthwave styling */}
       <footer className="relative z-10 px-6 pb-8">
-        <div className="max-w-7xl mx-auto text-center">
+        <div className="max-w-7xl mx-auto text-center space-y-4">
+          <div className="flex justify-center items-center gap-6 text-sm">
+            <a 
+              href="/privacy-policy" 
+              className="text-cyan-300/70 hover:text-cyan-300 transition-colors font-mono tracking-wider"
+              style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}
+            >
+              Privacy Policy
+            </a>
+            <span className="text-cyan-300/30">•</span>
+            <a 
+              href="/terms-and-conditions" 
+              className="text-cyan-300/70 hover:text-cyan-300 transition-colors font-mono tracking-wider"
+              style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}
+            >
+              Terms & Conditions
+            </a>
+          </div>
           <p className="text-cyan-300/70 font-mono text-sm tracking-wider" style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}>
             © 2025 ZebraLabs OOD. All rights reserved.
           </p>

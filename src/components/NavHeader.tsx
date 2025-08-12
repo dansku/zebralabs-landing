@@ -29,7 +29,7 @@ export default function NavHeader() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-black/90 border-gray-700">
                 <DropdownMenuItem className="text-cyan-200/80 hover:text-cyan-200 focus:text-cyan-200 focus:bg-cyan-500/10 cursor-pointer">
-                  <Link to="/medstracker" className="w-full">MedsTracker</Link>
+                  <Link to="/remindose" className="w-full">Remindose</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -40,6 +40,14 @@ export default function NavHeader() {
               style={{ textShadow: location.pathname === '/about' ? '0 0 5px rgba(0, 255, 255, 0.5)' : undefined }}
             >
               About
+            </Link>
+            
+            <Link
+              to="/features"
+              className="text-cyan-200/80 hover:text-cyan-200 transition-colors"
+              style={{ textShadow: location.pathname === '/features' ? '0 0 5px rgba(0, 255, 255, 0.5)' : undefined }}
+            >
+              Features
             </Link>
             
             <Link
