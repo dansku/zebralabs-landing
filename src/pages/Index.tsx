@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import MouseGradient from "@/components/MouseGradient";
+import NavHeader from "@/components/NavHeader";
 
 const Index = () => {
   const [email, setEmail] = useState("");
@@ -66,6 +67,8 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden flex flex-col">
+      <NavHeader />
+      
       {/* Dark Synthwave Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-purple-950 to-black"></div>
       
@@ -222,7 +225,7 @@ const Index = () => {
       <footer className="relative z-10 px-6 pb-8">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-cyan-300/70 font-mono text-sm tracking-wider" style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}>
-            ZebraLabs OOD 2025
+            © 2025 ZebraLabs OOD. All rights reserved.
           </p>
         </div>
       </footer>
