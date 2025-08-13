@@ -1,4 +1,4 @@
-import { Mail, MessageCircle, FileText, Users } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export default function ContactSection() {
   return (

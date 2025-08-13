@@ -10,11 +10,7 @@ import {
     CheckCircle,
     Bell,
     Calendar,
-    Shield,
-    Download,
-    Star,
-    Users,
-    Activity, Scale
+    Scale
 } from "lucide-react";
 
 const ReminDose = () => {
