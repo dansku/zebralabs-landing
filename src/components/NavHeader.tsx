@@ -16,19 +16,19 @@ export default function NavHeader() {
         <div className="flex items-center justify-between">
           <Link 
             to="/" 
-            className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent"
+            className="text-2xl font-bold text-gray-900 hover:text-gray-700 transition-colors"
           >
             ZebraLabs
           </Link>
           
           <div className="flex items-center gap-8">
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 text-cyan-200/80 hover:text-cyan-200 transition-colors cursor-pointer outline-none">
+              <DropdownMenuTrigger className="flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer outline-none">
                 Apps
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-black/90 border-gray-700">
-                <DropdownMenuItem className="text-cyan-200/80 hover:text-cyan-200 focus:text-cyan-200 focus:bg-cyan-500/10 cursor-pointer">
+              <DropdownMenuContent className="bg-white border-gray-200">
+                <DropdownMenuItem className="text-gray-600 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-50 cursor-pointer">
                   <Link to="/remindose" className="w-full">Remindose</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -36,16 +36,14 @@ export default function NavHeader() {
             
             <Link
               to="/about"
-              className="text-cyan-200/80 hover:text-cyan-200 transition-colors"
-              style={{ textShadow: location.pathname === '/about' ? '0 0 5px rgba(0, 255, 255, 0.5)' : undefined }}
+              className={`text-gray-600 hover:text-gray-900 transition-colors ${location.pathname === '/about' ? 'text-gray-900 font-medium' : ''}`}
             >
               About
             </Link>
             
             <Link
               to="/contact"
-              className="text-cyan-200/80 hover:text-cyan-200 transition-colors"
-              style={{ textShadow: location.pathname === '/contact' ? '0 0 5px rgba(0, 255, 255, 0.5)' : undefined }}
+              className={`text-gray-600 hover:text-gray-900 transition-colors ${location.pathname === '/contact' ? 'text-gray-900 font-medium' : ''}`}
             >
               Contact
             </Link>
