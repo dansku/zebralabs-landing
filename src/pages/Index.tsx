@@ -1,14 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import MouseGradient from "@/components/MouseGradient";
 import NavHeader from "@/components/NavHeader";
 
 const Index = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const logoRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   const handleSubscribe = async (e: React.FormEvent) => {
@@ -32,7 +29,7 @@ const Index = () => {
       if (response.ok && data.success) {
         setEmail("");
         toast({
-          title: "Success! 🚀",
+          title: "Success!",
           description: "You've been added to our waitlist. Great things are coming!",
         });
       } else {
@@ -49,201 +46,107 @@ const Index = () => {
     }
   };
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      
-      // Calculate relative position (-1 to 1)
-      const x = (clientX - innerWidth / 2) / (innerWidth / 2);
-      const y = (clientY - innerHeight / 2) / (innerHeight / 2);
-      
-      setMousePosition({ x, y });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col">
       <NavHeader />
       
-      {/* Dark Synthwave Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-purple-950 to-black"></div>
-      
-      {/* Dark horizon glow */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-purple-900/20 via-pink-900/10 to-transparent"></div>
-
-      {/* Minimal Dark Grid Floor */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/2 overflow-hidden opacity-30">
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: `
-              repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 39px,
-                rgba(0, 255, 255, 0.15) 40px,
-                rgba(0, 255, 255, 0.15) 41px
-              ),
-              repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 49px,
-                rgba(255, 0, 255, 0.1) 50px,
-                rgba(255, 0, 255, 0.1) 51px
-              )
-            `,
-            transform: 'perspective(600px) rotateX(88deg)',
-            transformOrigin: 'bottom center'
-          }}
-        ></div>
-      </div>
-
-      {/* Dark Synthwave Mountains - Minimal Wireframe */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 opacity-40">
-        <svg className="w-full h-full" viewBox="0 0 1200 200" preserveAspectRatio="none">
-          {/* Distant mountain silhouette */}
-          <path 
-            d="M0,200 L0,120 L200,80 L400,100 L600,70 L800,90 L1000,75 L1200,95 L1200,200 Z" 
-            fill="none"
-            stroke="rgba(0, 255, 255, 0.4)"
-            strokeWidth="1"
-          />
-          {/* Closer mountain wireframe */}
-          <path 
-            d="M0,200 L0,150 L150,120 L350,140 L550,110 L750,130 L950,115 L1200,135 L1200,200 Z" 
-            fill="rgba(25, 25, 25, 0.6)"
-            stroke="rgba(255, 0, 255, 0.5)"
-            strokeWidth="1.5"
-          />
-        </svg>
-      </div>
-
-      {/* Subtle stars */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <div 
-            key={i}
-            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60 animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 60}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
-            }}
-          ></div>
-        ))}
-      </div>
-
-      <MouseGradient />
-
-      {/* Floating neon orbs */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-400/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-      <div className="absolute top-1/2 right-1/3 w-48 h-48 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-
-      {/* Header */}
-      <header className="relative z-10 px-6 py-8">
-      </header>
-
       {/* Main Content */}
-      <main className="relative z-10 px-6 pt-12 pb-24 flex-grow">
-        <div className="max-w-7xl mx-auto text-center">
-          {/* Logo with neon glow and mouse tracking */}
-          <div className="mb-4">
-            <div 
-              ref={logoRef}
-              className="relative inline-block transition-transform duration-100 ease-out"
-              style={{
-                transform: `translate3d(${mousePosition.x * 20}px, ${mousePosition.y * 15}px, 0) rotateX(${mousePosition.y * -5}deg) rotateY(${mousePosition.x * 5}deg)`
-              }}
-            >
-              <img 
-                src="/logo.png" 
-                alt="ZebraLabs" 
-                className="mx-auto drop-shadow-2xl" 
-                style={{ 
-                  height: '510px', 
-                  width: 'auto',
-                  filter: 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.5)) drop-shadow(0 0 40px rgba(255, 0, 255, 0.3))',
-                  transformStyle: 'preserve-3d'
-                }} 
-              />
-            </div>
+      <main className="flex-grow flex items-center justify-center px-6 py-20">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Logo */}
+          <div className="mb-12">
+            <img 
+              src="/logo.png" 
+              alt="ZebraLabs" 
+              className="mx-auto h-64 w-auto"
+            />
           </div>
           
           {/* Hero Section */}
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-6xl md:text-7xl font-bold leading-tight tracking-tight mb-8">
-              <span className="bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent" style={{ textShadow: '0 0 10px rgba(0, 255, 255, 0.8)' }}>
-                ZebraLabs
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent" style={{ textShadow: '0 0 10px rgba(255, 0, 255, 0.6)' }}>
-                Great Things Are Coming
-              </span>
+          <div className="space-y-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
+              ZebraLabs
             </h1>
             
-            <p className="text-lg text-cyan-200 mb-12 max-w-2xl mx-auto leading-relaxed drop-shadow-lg" style={{ textShadow: '0 0 10px rgba(0, 255, 255, 0.3)' }}>
-              Be the first to know when we launch. <br/>Join our waitlist for exclusive updates and early access.
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-700">
+              Great Things Are Coming
+            </h2>
+            
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Be the first to know when we launch. Join our waitlist for exclusive updates and early access.
             </p>
 
-            {/* Email Signup with neon styling */}
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 max-w-md mx-auto">
-              <input
-                type="email"
-                required
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full sm:flex-1 h-14 px-6 bg-black/50 border-2 border-cyan-400/50 rounded-full text-cyan-100 placeholder-cyan-300/70 focus:outline-none focus:border-cyan-400 focus:shadow-lg transition-all duration-300 text-lg backdrop-blur-sm"
-                style={{ 
-                  boxShadow: '0 0 20px rgba(0, 255, 255, 0.2)',
-                  textShadow: '0 0 5px rgba(0, 255, 255, 0.5)'
-                }}
-              />
-              <Button 
-                type="submit"
-                disabled={isLoading}
-                className="h-14 px-8 rounded-full text-lg font-bold transition-all duration-300 whitespace-nowrap bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white border-2 border-pink-400/50 hover:border-pink-400 shadow-lg hover:shadow-pink-400/50 disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{ 
-                  boxShadow: '0 0 20px rgba(255, 0, 255, 0.4)',
-                  textShadow: '0 0 10px rgba(255, 255, 255, 0.8)'
-                }}
-              >
-                {isLoading ? 'Adding you...' : 'Notify Me'}
-              </Button>
+            {/* Email Signup Form */}
+            <form onSubmit={handleSubscribe} className="mt-10 max-w-md mx-auto">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+                />
+                <Button 
+                  type="submit"
+                  disabled={isLoading}
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? 'Subscribing...' : 'Notify Me'}
+                </Button>
+              </div>
             </form>
+
+            {/* Trust Indicators */}
+            <div className="mt-16 pt-8 border-t border-gray-200">
+              <p className="text-sm text-gray-500 mb-4">Join thousands waiting for our launch</p>
+              <div className="flex justify-center items-center gap-8 text-gray-400">
+                <span className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  No spam
+                </span>
+                <span className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  Secure
+                </span>
+                <span className="flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  Early access
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </main>
 
-      {/* Footer with synthwave styling */}
-      <footer className="relative z-10 px-6 pb-8">
-        <div className="max-w-7xl mx-auto text-center space-y-4">
-          <div className="flex justify-center items-center gap-6 text-sm">
-            <a 
-              href="/privacy-policy" 
-              className="text-cyan-300/70 hover:text-cyan-300 transition-colors font-mono tracking-wider"
-              style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}
-            >
-              Privacy Policy
-            </a>
-            <span className="text-cyan-300/30">•</span>
-            <a 
-              href="/terms-and-conditions" 
-              className="text-cyan-300/70 hover:text-cyan-300 transition-colors font-mono tracking-wider"
-              style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}
-            >
-              Terms & Conditions
-            </a>
+      {/* Footer */}
+      <footer className="px-6 py-8 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-gray-500">
+              © 2025 ZebraLabs OOD. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              <a 
+                href="/privacy-policy" 
+                className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                Privacy Policy
+              </a>
+              <a 
+                href="/terms-and-conditions" 
+                className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                Terms & Conditions
+              </a>
+            </div>
           </div>
-          <p className="text-cyan-300/70 font-mono text-sm tracking-wider" style={{ textShadow: '0 0 5px rgba(0, 255, 255, 0.3)' }}>
-            © 2025 ZebraLabs OOD. All rights reserved.
-          </p>
         </div>
       </footer>
     </div>
