@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -284,6 +285,15 @@ const ReminDose = () => {
               {isLoading ? 'Joining...' : 'Join Waitlist'}
             </Button>
           </form>
+        </div>
+      </section>
+
+      {/* Footer Links */}
+      <section className="py-8 px-6 border-t border-gray-200">
+        <div className="container mx-auto max-w-6xl text-center">
+          <Link to="/remindose-privacy-policy" className="text-gray-600 hover:text-blue-600 transition-colors">
+            Remindose Privacy Policy
+          </Link>
         </div>
       </section>
 
