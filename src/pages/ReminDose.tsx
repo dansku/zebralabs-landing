@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import NavHeader from "@/components/NavHeader";
 import Footer from "@/components/Footer";
 import {
@@ -17,6 +18,18 @@ import {
 } from "lucide-react";
 
 const ReminDose = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white flex flex-col">
       <NavHeader />
@@ -39,22 +52,22 @@ const ReminDose = () => {
                 href="https://apps.apple.com/pt/app/remindose/id6751042962?l=en-GB"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center bg-black text-white px-8 py-4 rounded-xl hover:bg-gray-900 transition-all transform hover:scale-105"
+                className="inline-flex items-center justify-center transition-all transform hover:scale-105"
               >
                 <img 
                   src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
                   alt="Download on App Store" 
-                  className="h-10"
+                  className="h-12"
                 />
               </a>
               <button 
                 disabled
-                className="inline-flex items-center justify-center bg-black/80 text-white px-8 py-4 rounded-xl opacity-75 cursor-not-allowed"
+                className="inline-flex items-center justify-center opacity-75 cursor-not-allowed"
               >
                 <img 
                   src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
                   alt="Get it on Google Play" 
-                  className="h-10 opacity-50"
+                  className="h-12 opacity-50"
                 />
               </button>
             </div>
@@ -66,23 +79,23 @@ const ReminDose = () => {
           <div className="flex justify-center items-center gap-8 flex-wrap">
             <div className="relative">
               <img 
-                src="/remindose/img01.png" 
+                src="/remindose/img01-portrait.png" 
                 alt="ReminDose home screen" 
-                className="w-64 h-auto rounded-3xl shadow-2xl transform hover:scale-105 transition-transform"
+                className="w-64 h-auto transform hover:scale-105 transition-transform"
               />
             </div>
             <div className="relative -mt-8 md:mt-0">
               <img 
-                src="/remindose/img02.png" 
+                src="/remindose/img02-portrait.png" 
                 alt="ReminDose medication list" 
-                className="w-64 h-auto rounded-3xl shadow-2xl transform hover:scale-105 transition-transform"
+                className="w-64 h-auto transform hover:scale-105 transition-transform"
               />
             </div>
             <div className="relative">
               <img 
-                src="/remindose/img03.png" 
+                src="/remindose/img03-portrait.png" 
                 alt="ReminDose tracking" 
-                className="w-64 h-auto rounded-3xl shadow-2xl transform hover:scale-105 transition-transform"
+                className="w-64 h-auto transform hover:scale-105 transition-transform"
               />
             </div>
           </div>
@@ -108,9 +121,6 @@ const ReminDose = () => {
               <p className="text-gray-600 text-sm">
                 Intelligent alerts that adapt to your routine and never let you forget
               </p>
-              <button className="mt-4 text-purple-600 text-sm font-medium hover:text-purple-700 transition-colors">
-                Learn more →
-              </button>
             </div>
             
             <div className="text-center group">
@@ -121,9 +131,6 @@ const ReminDose = () => {
               <p className="text-gray-600 text-sm">
                 Keep a complete log of all your medications with dosage information
               </p>
-              <button className="mt-4 text-green-600 text-sm font-medium hover:text-green-700 transition-colors">
-                Learn more →
-              </button>
             </div>
             
             <div className="text-center group">
@@ -134,9 +141,6 @@ const ReminDose = () => {
               <p className="text-gray-600 text-sm">
                 Visualize your adherence and share reports with healthcare providers
               </p>
-              <button className="mt-4 text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors">
-                Learn more →
-              </button>
             </div>
             
             <div className="text-center group">
@@ -147,9 +151,6 @@ const ReminDose = () => {
               <p className="text-gray-600 text-sm">
                 Get personalized insights based on your medication adherence patterns
               </p>
-              <button className="mt-4 text-yellow-600 text-sm font-medium hover:text-yellow-700 transition-colors">
-                Learn more →
-              </button>
             </div>
           </div>
         </div>
@@ -192,9 +193,12 @@ const ReminDose = () => {
             </div>
             <div className="relative">
               <img 
-                src="/remindose/img04.png" 
+                src="/remindose/img04-left.png" 
                 alt="ReminDose tracking interface" 
-                className="w-full max-w-md mx-auto rounded-3xl shadow-2xl"
+                className="w-full max-w-md mx-auto transition-transform duration-200 ease-out"
+                style={{
+                  transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`
+                }}
               />
             </div>
           </div>
@@ -210,13 +214,14 @@ const ReminDose = () => {
           
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
             <div className="relative">
-              <div className="bg-gradient-to-br from-purple-100 to-blue-100 rounded-3xl p-8">
-                <img 
-                  src="/remindose/img01.png" 
-                  alt="Instant payments feature" 
-                  className="w-64 mx-auto rounded-2xl shadow-xl"
-                />
-              </div>
+              <img 
+                src="/remindose/img01-left.png" 
+                alt="Instant payments feature" 
+                className="w-full max-w-md mx-auto transition-transform duration-200 ease-out"
+                style={{
+                  transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`
+                }}
+              />
             </div>
             <div>
               <h3 className="text-3xl font-bold mb-4 text-gray-900">
@@ -226,9 +231,6 @@ const ReminDose = () => {
                 Get instant notifications for your medications with our secure and reliable reminder system. 
                 Never miss a dose with customizable alerts that work around your schedule.
               </p>
-              <button className="text-purple-600 font-semibold hover:text-purple-700 transition-colors inline-flex items-center gap-2">
-                Learn More <ArrowRight className="h-5 w-5" />
-              </button>
             </div>
           </div>
 
@@ -241,18 +243,16 @@ const ReminDose = () => {
                 Personalize your medication schedule with detailed profiles for each medicine. 
                 Set specific instructions, add notes, and track side effects all in one place.
               </p>
-              <button className="text-purple-600 font-semibold hover:text-purple-700 transition-colors inline-flex items-center gap-2">
-                Learn More <ArrowRight className="h-5 w-5" />
-              </button>
             </div>
             <div className="relative order-1 lg:order-2">
-              <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl p-8">
-                <img 
-                  src="/remindose/img02.png" 
-                  alt="Profile settings feature" 
-                  className="w-64 mx-auto rounded-2xl shadow-xl"
-                />
-              </div>
+              <img 
+                src="/remindose/img02-left.png" 
+                alt="Profile settings feature" 
+                className="w-full max-w-md mx-auto transition-transform duration-200 ease-out"
+                style={{
+                  transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`
+                }}
+              />
             </div>
           </div>
         </div>
@@ -350,22 +350,22 @@ const ReminDose = () => {
               href="https://apps.apple.com/pt/app/remindose/id6751042962?l=en-GB"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-black text-white px-8 py-4 rounded-xl hover:bg-gray-900 transition-all transform hover:scale-105"
+              className="inline-flex items-center justify-center transition-all transform hover:scale-105"
             >
               <img 
                 src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
                 alt="Download on App Store" 
-                className="h-12"
+                className="h-14"
               />
             </a>
             <button 
               disabled
-              className="inline-flex items-center justify-center bg-black/50 text-white px-8 py-4 rounded-xl opacity-75 cursor-not-allowed"
+              className="inline-flex items-center justify-center opacity-75 cursor-not-allowed"
             >
               <img 
                 src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
                 alt="Get it on Google Play" 
-                className="h-12 opacity-50"
+                className="h-14 opacity-50"
               />
             </button>
           </div>
@@ -374,10 +374,6 @@ const ReminDose = () => {
             <div className="flex items-center gap-2">
               <Shield className="h-5 w-5" />
               <span>Secure & Private</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="h-5 w-5" />
-              <span>24/7 Support</span>
             </div>
             <div className="flex items-center gap-2">
               <Smartphone className="h-5 w-5" />
