@@ -1,178 +1,333 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
 import NavHeader from "@/components/NavHeader";
 import Footer from "@/components/Footer";
 import {
-    Smartphone,
-    Clock,
-    CheckCircle,
     Bell,
     Calendar,
-    Scale
+    Pill,
+    Heart,
+    Clock,
+    Shield,
+    Smartphone,
+    Star,
+    CheckCircle,
+    ArrowRight,
+    BarChart3,
+    Users
 } from "lucide-react";
 
 const ReminDose = () => {
-  const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-
-  const handleEarlyAccess = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || isLoading) return;
-
-    setIsLoading(true);
-
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          email,
-          source: 'remindose'
-        })
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setEmail("");
-        toast({
-          title: "Welcome to Remindose!",
-          description: "You'll be first to know when we launch on iOS and Android!",
-        });
-      } else {
-        throw new Error(data.error || 'Failed to join waitlist');
-      }
-    } catch (error) {
-      toast({
-        title: "Oops! Something went wrong",
-        description: error instanceof Error ? error.message : "Please try again later.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white flex flex-col">
       <NavHeader />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-20 px-6 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left side - Content */}
-            <div>
-              <Badge className="bg-blue-50 text-blue-700 border-blue-200 mb-6">
-                Coming Soon to iOS & Android
-              </Badge>
-              
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900">
-                Remindose
-              </h1>
-              
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Never miss your medication again. Remindose is your intelligent medication companion, 
-                ensuring you take the right dose at the right time with smart reminders, comprehensive 
-                tracking, and personalized health insights.
-              </p>
-              
-              <div className="flex flex-wrap gap-4 mb-8">
-                <div className="flex items-center gap-2 text-gray-700">
-                  <Bell className="h-5 w-5 text-blue-600" />
-                  <span>Smart Reminders</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-700">
-                  <Calendar className="h-5 w-5 text-blue-600" />
-                  <span>Schedule Tracking</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-700">
-                  <Scale className="h-5 w-5 text-blue-600" />
-                  <span>Weight Tracking</span>
-                </div>
-              </div>
-
-              {/* Early Access Signup */}
-              <form onSubmit={handleEarlyAccess} className="flex flex-col sm:flex-row gap-4 max-w-md">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 h-12 px-4 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+      <section className="pt-24 pb-20 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-400/10 via-blue-400/10 to-pink-400/10"></div>
+        <div className="container mx-auto max-w-7xl relative z-10">
+          <div className="text-center mb-12">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              Take Control Of Your<br />Medication Anytime
+            </h1>
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+              Stay healthy and never miss a dose with personalized reminders and tracking
+            </p>
+            
+            {/* Download buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <a 
+                href="https://apps.apple.com/pt/app/remindose/id6751042962?l=en-GB"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center bg-black text-white px-8 py-4 rounded-xl hover:bg-gray-900 transition-all transform hover:scale-105"
+              >
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                  alt="Download on App Store" 
+                  className="h-10"
                 />
-                <Button 
-                  type="submit"
-                  disabled={isLoading}
-                  className="h-12 px-6 rounded-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors"
-                >
-                  {isLoading ? 'Joining...' : 'Get Early Access'}
-                </Button>
-              </form>
+              </a>
+              <button 
+                disabled
+                className="inline-flex items-center justify-center bg-black/80 text-white px-8 py-4 rounded-xl opacity-75 cursor-not-allowed"
+              >
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                  alt="Get it on Google Play" 
+                  className="h-10 opacity-50"
+                />
+              </button>
             </div>
-
-            {/* Right side - App Preview */}
+            
+            <p className="text-sm text-gray-500">Available on iOS • Android coming soon</p>
+          </div>
+          
+          {/* Phone mockups */}
+          <div className="flex justify-center items-center gap-8 flex-wrap">
             <div className="relative">
-              <div className="relative mx-auto w-72 h-[600px] bg-white rounded-[3rem] border-8 border-gray-200 shadow-xl">
-                {/* Phone screen */}
-                <div className="absolute inset-4 bg-gray-50 rounded-[2rem] overflow-hidden">
-                  {/* Status bar */}
-                  <div className="flex justify-between items-center p-4 text-gray-900 text-sm">
-                    <span>9:41</span>
-                    <div className="flex gap-1">
-                      <div className="w-4 h-2 bg-gray-900 rounded-sm"></div>
-                      <div className="w-6 h-2 bg-gray-900 rounded-sm"></div>
-                      <div className="w-6 h-2 bg-gray-900 rounded-sm"></div>
-                    </div>
+              <img 
+                src="/remindose/img01.png" 
+                alt="ReminDose home screen" 
+                className="w-64 h-auto rounded-3xl shadow-2xl transform hover:scale-105 transition-transform"
+              />
+            </div>
+            <div className="relative -mt-8 md:mt-0">
+              <img 
+                src="/remindose/img02.png" 
+                alt="ReminDose medication list" 
+                className="w-64 h-auto rounded-3xl shadow-2xl transform hover:scale-105 transition-transform"
+              />
+            </div>
+            <div className="relative">
+              <img 
+                src="/remindose/img03.png" 
+                alt="ReminDose tracking" 
+                className="w-64 h-auto rounded-3xl shadow-2xl transform hover:scale-105 transition-transform"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20 px-6 bg-white">
+        <div className="container mx-auto max-w-7xl">
+          <h2 className="text-4xl font-bold text-center mb-4 text-gray-900">
+            Our Services
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Everything you need to manage your medication schedule effectively
+          </p>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
+                <Bell className="h-10 w-10 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Smart Reminders</h3>
+              <p className="text-gray-600 text-sm">
+                Intelligent alerts that adapt to your routine and never let you forget
+              </p>
+              <button className="mt-4 text-purple-600 text-sm font-medium hover:text-purple-700 transition-colors">
+                Learn more →
+              </button>
+            </div>
+            
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-green-200 transition-colors">
+                <Pill className="h-10 w-10 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Medication Tracking</h3>
+              <p className="text-gray-600 text-sm">
+                Keep a complete log of all your medications with dosage information
+              </p>
+              <button className="mt-4 text-green-600 text-sm font-medium hover:text-green-700 transition-colors">
+                Learn more →
+              </button>
+            </div>
+            
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
+                <BarChart3 className="h-10 w-10 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Progress Reports</h3>
+              <p className="text-gray-600 text-sm">
+                Visualize your adherence and share reports with healthcare providers
+              </p>
+              <button className="mt-4 text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors">
+                Learn more →
+              </button>
+            </div>
+            
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-yellow-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-200 transition-colors">
+                <Heart className="h-10 w-10 text-yellow-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Health Insights</h3>
+              <p className="text-gray-600 text-sm">
+                Get personalized insights based on your medication adherence patterns
+              </p>
+              <button className="mt-4 text-yellow-600 text-sm font-medium hover:text-yellow-700 transition-colors">
+                Learn more →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Highlight 1 */}
+      <section className="py-20 px-6 bg-gradient-to-r from-purple-50 to-blue-50">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-bold mb-6 text-gray-900">
+                Track It. Take It.<br />And Feel Better.
+              </h2>
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-purple-600 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Manage your medication schedule easily</h3>
+                    <p className="text-gray-600">Set up complex medication schedules with ease and precision</p>
                   </div>
-                  
-                  {/* App content */}
-                  <div className="px-4 pb-4">
-                    <div className="text-center mb-6">
-                      <h2 className="text-2xl font-bold text-blue-600 mb-2">Remindose</h2>
-                      <p className="text-gray-500 text-sm">Today's Schedule</p>
-                    </div>
-                    
-                    {/* Medication cards */}
-                    <div className="space-y-3">
-                      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h3 className="text-gray-900 font-semibold">Morning Pills</h3>
-                            <p className="text-gray-500 text-sm">2 medications • 8:00 AM</p>
-                          </div>
-                          <CheckCircle className="h-6 w-6 text-green-500" />
-                        </div>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h3 className="text-gray-900 font-semibold">Afternoon Dose</h3>
-                            <p className="text-gray-500 text-sm">1 medication • 2:00 PM</p>
-                          </div>
-                          <Clock className="h-6 w-6 text-yellow-500" />
-                        </div>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h3 className="text-gray-900 font-semibold">Evening Meds</h3>
-                            <p className="text-gray-500 text-sm">3 medications • 7:00 PM</p>
-                          </div>
-                          <Bell className="h-6 w-6 text-blue-600" />
-                        </div>
-                      </div>
-                    </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-purple-600 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Get timely reminders for each dose</h3>
+                    <p className="text-gray-600">Never miss a dose with smart notifications and alarms</p>
                   </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-purple-600 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Track your progress over time</h3>
+                    <p className="text-gray-600">Monitor adherence patterns and identify areas for improvement</p>
+                  </div>
+                </div>
+              </div>
+              <button className="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors inline-flex items-center gap-2">
+                Get Started <ArrowRight className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="relative">
+              <img 
+                src="/remindose/img04.png" 
+                alt="ReminDose tracking interface" 
+                className="w-full max-w-md mx-auto rounded-3xl shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-20 px-6 bg-white">
+        <div className="container mx-auto max-w-7xl">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">
+            Take A Look At Our Big<br />Set Of Features
+          </h2>
+          
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+            <div className="relative">
+              <div className="bg-gradient-to-br from-purple-100 to-blue-100 rounded-3xl p-8">
+                <img 
+                  src="/remindose/img01.png" 
+                  alt="Instant payments feature" 
+                  className="w-64 mx-auto rounded-2xl shadow-xl"
+                />
+              </div>
+            </div>
+            <div>
+              <h3 className="text-3xl font-bold mb-4 text-gray-900">
+                Instant Reminders.<br />Secure. Hassle-Free.
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Get instant notifications for your medications with our secure and reliable reminder system. 
+                Never miss a dose with customizable alerts that work around your schedule.
+              </p>
+              <button className="text-purple-600 font-semibold hover:text-purple-700 transition-colors inline-flex items-center gap-2">
+                Learn More <ArrowRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1">
+              <h3 className="text-3xl font-bold mb-4 text-gray-900">
+                Customize Your Medication<br />Profile Settings
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Personalize your medication schedule with detailed profiles for each medicine. 
+                Set specific instructions, add notes, and track side effects all in one place.
+              </p>
+              <button className="text-purple-600 font-semibold hover:text-purple-700 transition-colors inline-flex items-center gap-2">
+                Learn More <ArrowRight className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="relative order-1 lg:order-2">
+              <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-3xl p-8">
+                <img 
+                  src="/remindose/img02.png" 
+                  alt="Profile settings feature" 
+                  className="w-64 mx-auto rounded-2xl shadow-xl"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto max-w-7xl">
+          <h2 className="text-4xl font-bold text-center mb-4 text-gray-900">
+            Words From Satisfied<br />App Users
+          </h2>
+          <p className="text-center text-gray-600 mb-12">
+            See what our users are saying about ReminDose
+          </p>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <div className="flex gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Life Changing!</h3>
+              <p className="text-gray-600 mb-4">
+                "I've been taking medication for years, and ReminDose has completely transformed how I manage my pills. The reminders are perfectly timed!"
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                  <Users className="h-6 w-6 text-purple-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">Sarah Johnson</p>
+                  <p className="text-sm text-gray-500">Verified User</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <div className="flex gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Simply The Best</h3>
+              <p className="text-gray-600 mb-4">
+                "Tried many medication reminder apps, but ReminDose is by far the most intuitive and reliable. The tracking features are exceptional!"
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                  <Users className="h-6 w-6 text-green-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">Michael Chen</p>
+                  <p className="text-sm text-gray-500">Verified User</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <div className="flex gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-2">Great Service</h3>
+              <p className="text-gray-600 mb-4">
+                "The app is incredibly user-friendly and the customer support team is amazing. It's helped me stay on top of my medication schedule!"
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <Users className="h-6 w-6 text-blue-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">Emma Davis</p>
+                  <p className="text-sm text-gray-500">Verified User</p>
                 </div>
               </div>
             </div>
@@ -180,119 +335,63 @@ const ReminDose = () => {
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-            Simple to Start, Powerful to Use
-          </h2>
-          
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">1</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Add Medications</h3>
-              <p className="text-gray-600">
-                Quickly add your medications by scanning or searching our extensive database
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">2</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Set Schedule</h3>
-              <p className="text-gray-600">
-                Create custom schedules that fit your routine and doctor's instructions
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">3</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Get Reminders</h3>
-              <p className="text-gray-600">
-                Receive smart notifications that ensure you never miss a dose
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">4</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Track Progress</h3>
-              <p className="text-gray-600">
-                Monitor your adherence and share reports with healthcare providers
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* Coming Soon Section */}
-      <section className="py-20 px-6 bg-gray-50">
+      {/* Download CTA Section */}
+      <section className="py-20 px-6 bg-gradient-to-br from-purple-600 to-blue-600">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Coming to iOS & Android</h2>
-          <p className="text-gray-600 text-lg mb-12">
-            We're putting the finishing touches on Remindose. Join our waitlist to be the first 
-            to download when we launch! Early supporters will receive exclusive benefits and premium features.
+          <h2 className="text-4xl font-bold text-white mb-6">
+            Download The App On The<br />App Store Or Play Store
+          </h2>
+          <p className="text-white/90 text-lg mb-8">
+            Join thousands of users who never miss their medication
           </p>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-            <div className="bg-white p-8 rounded-xl border border-gray-200">
-              <Smartphone className="h-16 w-16 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">iOS App</h3>
-              <p className="text-gray-600 mb-4">Available on the App Store</p>
-              <Badge variant="outline" className="text-blue-600 border-blue-200">Coming Q2 2025</Badge>
-            </div>
-            
-            <div className="bg-white p-8 rounded-xl border border-gray-200">
-              <Smartphone className="h-16 w-16 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Android App</h3>
-              <p className="text-gray-600 mb-4">Available on Google Play</p>
-              <Badge variant="outline" className="text-blue-600 border-blue-200">Coming Q2 2025</Badge>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Ready to Take Control of Your Health?
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Join thousands waiting for the most intuitive medication reminder app ever created.
-          </p>
-          <form onSubmit={handleEarlyAccess} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <input
-              type="email"
-              required
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 h-14 px-6 border-2 border-gray-300 rounded-full text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-            />
-            <Button 
-              type="submit"
-              disabled={isLoading}
-              className="h-14 px-8 rounded-full font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <a 
+              href="https://apps.apple.com/pt/app/remindose/id6751042962?l=en-GB"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-black text-white px-8 py-4 rounded-xl hover:bg-gray-900 transition-all transform hover:scale-105"
             >
-              {isLoading ? 'Joining...' : 'Join Waitlist'}
-            </Button>
-          </form>
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                alt="Download on App Store" 
+                className="h-12"
+              />
+            </a>
+            <button 
+              disabled
+              className="inline-flex items-center justify-center bg-black/50 text-white px-8 py-4 rounded-xl opacity-75 cursor-not-allowed"
+            >
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Get it on Google Play" 
+                className="h-12 opacity-50"
+              />
+            </button>
+          </div>
+          
+          <div className="flex justify-center gap-8 text-white">
+            <div className="flex items-center gap-2">
+              <Shield className="h-5 w-5" />
+              <span>Secure & Private</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="h-5 w-5" />
+              <span>24/7 Support</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Smartphone className="h-5 w-5" />
+              <span>Works Offline</span>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Footer Links */}
-      <section className="py-8 px-6 border-t border-gray-200">
+      <section className="py-8 px-6 border-t border-gray-200 bg-white">
         <div className="container mx-auto max-w-6xl text-center">
-          <Link to="/remindose-privacy-policy" className="text-gray-600 hover:text-blue-600 transition-colors">
-            Remindose Privacy Policy
+          <Link to="/remindose-privacy-policy" className="text-gray-600 hover:text-purple-600 transition-colors">
+            ReminDose Privacy Policy
           </Link>
         </div>
       </section>
