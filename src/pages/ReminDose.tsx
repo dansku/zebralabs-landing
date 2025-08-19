@@ -4,10 +4,8 @@ import NavHeader from "@/components/NavHeader";
 import Footer from "@/components/Footer";
 import {
     Bell,
-    Calendar,
     Pill,
     Heart,
-    Clock,
     Shield,
     Smartphone,
     Star,
